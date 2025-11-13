@@ -27,4 +27,14 @@ export interface Metrics {
   performanceGrade: 'Excellent' | 'Good' | 'Needs Improvement';
 }
 
+export type TaskInput = {
+  title: string;
+  revenue: number;
+  timeTaken: number;
+  priority: Priority;
+  status: Status;
+  notes?: string;
+};
+
+
 

@@ -1,32 +1,39 @@
-import { Box, Card, CardContent, Stack, Tooltip, Typography } from '@mui/material';
-import { useTasksContext } from '@/context/TasksContext';
-import { Metrics } from '@/types';
+// src/components/MetricsBar.tsx
+import { Box, Card, CardContent, Stack, Tooltip, Typography } from "@mui/material";
+import { useTasksContext } from "@/context/TasksContext";
+import { Metrics } from "@/types";
 
 function Stat({ label, value, hint }: { label: string; value: string; hint?: string }) {
   const content = (
     <Stack spacing={0.5}>
-      <Typography variant="overline" color="text.secondary">{label}</Typography>
-      <Typography variant="h5" fontWeight={700}>{value}</Typography>
+      <Typography variant="overline" color="text.secondary">
+        {label}
+      </Typography>
+      <Typography variant="h5" fontWeight={700}>
+        {value}
+      </Typography>
     </Stack>
   );
   return hint ? <Tooltip title={hint}>{content}</Tooltip> : content;
 }
 
-export default function MetricsBar({ metricsOverride }: { metricsOverride?: Metrics }) {
-  const { metrics } = useTasksContext();
-  const m = metricsOverride ?? metrics;
+export default function MetricsBar({ metrics }: { metrics?: Metrics }) {
+  const ctx = useTasksContext();
+  const m = metrics ?? ctx.metrics;
+
   const { totalRevenue, timeEfficiencyPct, revenuePerHour, averageROI, performanceGrade, totalTimeTaken } = m;
+
   return (
     <Card>
       <CardContent>
         <Box
           sx={{
-            display: 'grid',
+            display: "grid",
             gap: 2,
             gridTemplateColumns: {
-              xs: '1fr',
-              sm: 'repeat(2, 1fr)',
-              md: 'repeat(5, 1fr)',
+              xs: "1fr",
+              sm: "repeat(2, 1fr)",
+              md: "repeat(5, 1fr)",
             },
           }}
         >
@@ -40,5 +47,3 @@ export default function MetricsBar({ metricsOverride }: { metricsOverride?: Metr
     </Card>
   );
 }
-
-
